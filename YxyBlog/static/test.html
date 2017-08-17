@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>RunJS 演示代码</title>
+    <script class="jquery library" src="/js/sandbox/jquery/jquery-1.8.2.min.js" type="text/javascript"></script>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            .wrap{
+                margin:auto;
+                width:300px;
+            }
+            table{
+                width:300px;
+                border:1px solid black;
+                border-collapse:collapse;
+            }
+            th,td{
+                border:1px solid black;
+            }
+        </style>
+    <script>
+        var data = {
+            "rows": [{
+                "name": "张三",
+                "idn": "20114100000",
+            }, {
+                "name": "李四",
+                "idn": "201556123000",
+            }, {
+                "name": "王五",
+                "idn": "2012101221000",
+            }, {
+                "name": "赵六",
+                "idn": "201191221000",
+            }]
+        };
+            jQuery(function($){
+                var tab = $("#tab"), txt = $("#txt");
+                $(data.rows).each(function(i,dom){
+                    var tr = $("<tr>");
+                    for(var k in dom){
+                        tr.append("<td>" + dom[k] + "</td>"); 
+                    }
+                    tab.append(tr);
+                });
+                txt.keyup(function(){
+                    var me = $(this), v = me.val().replace(/^\s+|\s+$/g,"");
+                    var trs = tab.find("tr:gt(0)");
+                    if(v==""){
+                        trs.filter(":hidden").show();
+                    }else{
+                        trs.hide().filter(":contains('"+me.val()+"')").show();
+                    }
+                });
+            });
+    </script>
+</head>
+ 
+<body>
+        <div class="wrap">
+            <input type="text" id="txt" />
+        <table id="tab">
+            <tr><th>name</th><th>idn</th></tr> 
+        </table>
+    </div>
+</body>
+ 
+</html>
